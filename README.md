@@ -130,7 +130,7 @@ The script includes:
 * Weather information.
 * Test queries.
 
-The SQL script can be found in:
+
 
 `/docs/RaceDay_Database.sql`
 

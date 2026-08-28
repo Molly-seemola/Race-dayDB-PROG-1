@@ -92,12 +92,6 @@ The plan includes endpoints for:
 * Routes
 * Weather
 
-The endpoint plan can be found in:
-
-`/docs/RaceDay_API_Endpoint_Plan.md`
-
----
-
 ### Section C – SQL Database Script
 
 The SQL script creates the RaceDay database using Microsoft SQL Server.

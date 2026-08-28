@@ -79,12 +79,6 @@ The database contains the following eight entities:
 
 The ERD identifies primary keys, foreign keys and relationships between the entities.
 
-The ERD can be found in:
-
-`/docs/RaceDay_ERD.pdf`
-
----
-
 ### Section B – API Endpoint Plan
 
 The API endpoint plan describes the RESTful API that will be developed in Part 2.

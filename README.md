@@ -291,20 +291,6 @@ Screenshots of the successful execution will be included as evidence where requi
 Part 1 provides the foundation for the remaining RaceDay project.
 
 
-
-### Part 3
-
-Part 3 will develop:
-
-* MVC web application.
-* Participant interface.
-* Organiser interface.
-* API integration.
-* Azure Blob Storage.
-* Docker containerisation.
-
----
-
 ## 14. Conclusion
 
 RaceDay Part 1 establishes the foundation for the complete RaceDay event management system.

@@ -55,7 +55,6 @@ A Participant can:
 * View their own enrolments.
 * View their personal race results.
 
-Role-based access will be enforced at API level in Part 2 and reflected in the MVC application in Part 3.
 
 ---
 

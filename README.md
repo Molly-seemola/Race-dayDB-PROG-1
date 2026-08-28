@@ -116,11 +116,6 @@ The script includes:
 * Test queries.
 
 
-
-`/docs/RaceDay_Database.sql`
-
----
-
 ## 5. Database Entities
 
 ### Users

@@ -264,14 +264,6 @@ The presentation will demonstrate:
 8. The GitHub repository structure.
 9. The successful GitHub Actions build.
 
-### YouTube Video
-
-The required unlisted YouTube video link will be added below:
-
-**YouTube Link:**
-`PASTE-YOUR-UNLISTED-YOUTUBE-LINK-HERE`
-
----
 
 ## 12. Part 1 Testing
 

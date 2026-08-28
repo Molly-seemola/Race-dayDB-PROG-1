@@ -290,17 +290,7 @@ Screenshots of the successful execution will be included as evidence where requi
 
 Part 1 provides the foundation for the remaining RaceDay project.
 
-### Part 2
 
-Part 2 will use the database and API plan to develop:
-
-* C# RESTful API.
-* Authentication.
-* Role-based authorisation.
-* Database connectivity.
-* API controllers.
-* Unit tests.
-* GitHub Actions CI/CD.
 
 ### Part 3
 

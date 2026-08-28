@@ -54,9 +54,7 @@ A Participant can:
 * Enrol in an event.
 * View their own enrolments.
 * View their personal race results.
-
-
----
+  
 
 ## 4. Part 1 Deliverables
 

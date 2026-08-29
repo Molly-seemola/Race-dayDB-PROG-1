@@ -8,8 +8,6 @@ The system is designed to make it easier for event organisers to manage events, 
 
 Part 1 focuses on **planning the system and creating the database** before the C# RESTful API and MVC web application are developed in Parts 2 and 3.
 
----
-
 ## 2. Project Objectives
 
 The main objectives of RaceDay are to:

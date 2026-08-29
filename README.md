@@ -240,7 +240,6 @@ The workflow checks that:
 * The SQL script exists.
 * The README file exists.
 
-
 ## 11. Video Presentation
 
 A video presentation is required for Part 1.

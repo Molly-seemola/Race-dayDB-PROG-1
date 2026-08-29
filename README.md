@@ -113,7 +113,6 @@ The script includes:
 * Weather information.
 * Test queries.
 
-
 ## 5. Database Entities
 
 ### Users

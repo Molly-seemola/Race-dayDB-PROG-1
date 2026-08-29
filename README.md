@@ -289,12 +289,10 @@ The ERD defines the database structure, the API endpoint plan defines how the fu
 
 The planning completed in Part 1 will be used as the foundation for the C# RESTful API in Part 2 and the MVC web application in Part 3.
 
----
-
 ## 15. Student Information
 
 **Student Name:** Molly Seemola
-**Project:** RaceDay
+**Project:** RaceDay part1
 **Portfolio of Evidence:** Part 1
 **Project Type:** Event Management System
 **Database:** Microsoft SQL Server

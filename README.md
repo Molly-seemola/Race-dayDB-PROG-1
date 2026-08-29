@@ -240,13 +240,6 @@ The workflow checks that:
 * The SQL script exists.
 * The README file exists.
 
-The workflow file is located at:
-
-`.github/workflows/part1-validation.yml`
-
-A screenshot of the successful green GitHub Actions build will be added to this README before final submission.
-
----
 
 ## 11. Video Presentation
 

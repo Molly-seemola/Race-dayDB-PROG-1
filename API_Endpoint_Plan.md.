@@ -1,3 +1,23 @@
+# 🌐 RaceDay API Endpoint Plan
+
+## Base URL
+
+**Local Development:**
+
+---
+
+## 🔐 Authentication & Authorization
+
+### Role-Based Access Control
+
+| Role | Abbreviation | Access |
+|---|---|---|
+| **None** | - | Public endpoints (register, login) |
+| **Any** | - | Any authenticated user (both roles) |
+| **Organiser** | Org | Only users with Organiser role |
+| **Participant** | Par | Only users with Participant role |
+
+### Authentication Header
 
 ---
 

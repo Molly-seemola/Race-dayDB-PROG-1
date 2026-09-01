@@ -1,79 +1,25 @@
-# 🌐 RaceDay API Endpoint Plan
-
-## Base URL
-
-**Local Development:**
-
----
-
-## 🔐 Authentication & Authorization
-
-### Role-Based Access Control
-
-| Role | Abbreviation | Access |
-|---|---|---|
-| **None** | - | Public endpoints (register, login) |
-| **Any** | - | Any authenticated user (both roles) |
-| **Organiser** | Org | Only users with Organiser role |
-| **Participant** | Par | Only users with Participant role |
-
-### Authentication Header
-
----
-
-## 📋 Endpoint Summary Table
-
-| # | Method | Route | Description | Role | Request Body | Response |
-|---|--------|-------|-------------|------|--------------|----------|
-| 1 | POST | `/api/auth/register` | Register new user account | None | `{ email, password, firstName, lastName, role }` | 201 Created - user details<br>400 Bad Request - validation errors<br>409 Conflict - email already exists |
-| 2 | POST | `/api/auth/login` | Authenticate user and return JWT | None | `{ email, password }` | 200 OK - { token, user }<br>401 Unauthorized - invalid credentials |
-| 3 | GET | `/api/auth/me` | Get current user profile | Any | None | 200 OK - user profile<br>401 Unauthorized - not logged in |
-| 4 | PUT | `/api/auth/me` | Update current user profile | Any | `{ firstName, lastName, email, profileImageUrl }` | 200 OK - updated profile<br>400 Bad Request - validation errors |
-| 5 | POST | `/api/auth/logout` | Logout user (invalidate token) | Any | None | 200 OK - logout successful |
-| 6 | GET | `/api/events` | Get all events with filters | Any | None (query: status, date, type, search, page, size) | 200 OK - paginated list of events |
-| 7 | GET | `/api/events/{id}` | Get single event by ID | Any | None | 200 OK - event details<br>404 Not Found - event doesn't exist |
-| 8 | POST | `/api/events` | Create a new event | Organiser | `{ name, description, eventDate, startTime, location, eventType, maxParticipants, imageUrl }` | 201 Created - new event<br>400 Bad Request - validation errors<br>401 Unauthorized - not organiser |
-| 9 | PUT | `/api/events/{id}` | Update an existing event | Organiser | `{ name, description, eventDate, startTime, location, eventType, status, maxParticipants, imageUrl }` | 200 OK - updated event<br>404 Not Found<br>403 Forbidden - not event owner |
-| 10 | DELETE | `/api/events/{id}` | Delete an event | Organiser | None | 204 No Content<br>404 Not Found<br>403 Forbidden - not event owner |
-| 11 | GET | `/api/events/upcoming` | Get upcoming events | Any | None (query: limit) | 200 OK - list of upcoming events |
-| 12 | GET | `/api/events/search` | Search events by name or location | Any | None (query: q, type) | 200 OK - list of matching events |
-| 13 | GET | `/api/events/{id}/categories` | Get all categories for an event | Any | None | 200 OK - list of categories |
-| 14 | POST | `/api/events/{id}/categories` | Add a category to an event | Organiser | `{ categoryName, distance, entryFee, categoryStartTime, maxParticipants }` | 201 Created - new category<br>400 Bad Request<br>404 Not Found |
-| 15 | PUT | `/api/categories/{id}` | Update a category | Organiser | `{ categoryName, distance, entryFee, categoryStartTime, maxParticipants }` | 200 OK - updated category<br>404 Not Found |
-| 16 | DELETE | `/api/categories/{id}` | Delete a category | Organiser | None | 204 No Content<br>404 Not Found |
-| 17 | GET | `/api/enrolments` | Get all enrolments (filtered) | Participant | None (query: eventId, status, participantId) | 200 OK - list of enrolments |
-| 18 | POST | `/api/events/{id}/enrol` | Enrol in an event category | Participant | `{ categoryId, paymentStatus }` | 201 Created - enrolment<br>400 Bad Request<br>409 Conflict - already enrolled |
-| 19 | PUT | `/api/enrolments/{id}/cancel` | Cancel an enrolment | Participant | None | 200 OK - cancelled enrolment<br>404 Not Found<br>403 Forbidden - not participant's enrolment |
-| 20 | PUT | `/api/enrolments/{id}/status` | Update enrolment status | Organiser | `{ status }` | 200 OK - updated enrolment<br>404 Not Found |
-| 21 | PUT | `/api/enrolments/{id}/payment` | Update payment status | Participant/Organiser | `{ paymentStatus }` | 200 OK - updated payment<br>404 Not Found |
-| 22 | GET | `/api/results` | Get results with filters | Any | None (query: eventId, participantId, categoryId) | 200 OK - list of results |
-| 23 | POST | `/api/results` | Submit participant result | Organiser | `{ enrolmentId, finishTime, position, overallPosition, ageCategoryPosition }` | 201 Created - result<br>400 Bad Request<br>404 Not Found |
-| 24 | PUT | `/api/results/{id}` | Update a result | Organiser | `{ finishTime, position, overallPosition, ageCategoryPosition, status }` | 200 OK - updated result<br>404 Not Found |
-| 25 | GET | `/api/participants/{id}/results` | Get participant's result history | Participant | None | 200 OK - list of participant results<br>403 Forbidden - not own results |
-| 26 | GET | `/api/weather/event/{id}` | Get weather for an event | Any | None | 200 OK - weather data<br>404 Not Found |
-| 27 | POST | `/api/weather/event/{id}` | Add/update weather for event | Organiser | `{ forecastDate, temperature, conditions, windSpeed, humidity, precipitation }` | 201 Created - weather record<br>400 Bad Request |
-| 28 | PUT | `/api/weather/{id}` | Update weather record | Organiser | `{ temperature, conditions, windSpeed, humidity, precipitation }` | 200 OK - updated weather<br>404 Not Found |
-| 29 | DELETE | `/api/weather/{id}` | Delete weather record | Organiser | None | 204 No Content<br>404 Not Found |
-| 30 | GET | `/api/dashboard/stats` | Get platform statistics | Organiser | None | 200 OK - statistics |
-| 31 | GET | `/api/organisers/{id}/events` | Get all events by organiser | Organiser | None | 200 OK - list of organiser events<br>403 Forbidden - not own events |
-| 32 | GET | `/api/health` | Health check endpoint | None | None | 200 OK - { status: "Healthy" } |
-
----
-
-## 🔍 Detailed Endpoint Specifications
-
-### 1. Authentication Endpoints
-
-#### POST `/api/auth/register`
-
-**Description:** Register a new user account. Users can sign up as either Organiser or Participant.
-
-**Request Body:**
-```json
-{
-    "email": "thabo.participant@raceday.co.za",
-    "password": "SecurePassword123!",
-    "firstName": "Thabo",
-    "lastName": "Mokoena",
-    "role": "Participant"
-}
+HTTP Method Route Description Role Required Request Body Expected Response
+POST /api/auth/register Register new user account None { email, password, firstName, lastName, role } 201 Created - user details; 400 Bad Request - validation errors; 409 Conflict - email exists
+POST /api/auth/login Authenticate user and return JWT None { email, password } 200 OK - { token, user }; 401 Unauthorized - invalid credentials
+GET /api/auth/me Get current user profile Any (logged in) None 200 OK - user profile; 401 Unauthorized - not logged in
+PUT /api/auth/me Update current user profile Any (logged in) { firstName, lastName, ... } 200 OK - updated profile; 400 Bad Request - validation errors
+GET /api/events Get all events (with filters) Any None (query params: status, date, type) 200 OK - list of events
+GET /api/events/{id} Get event by ID Any None 200 OK - event details; 404 Not Found - event doesn't exist
+POST /api/events Create new event Organiser { name, description, date, location, ... } 201 Created - event; 400 Bad Request - validation errors; 401 Unauthorized - not organiser
+PUT /api/events/{id} Update event Organiser { name, description, ... } 200 OK - updated event; 404 Not Found; 403 Forbidden - not event owner
+DELETE /api/events/{id} Delete event Organiser None 204 No Content; 404 Not Found; 403 Forbidden
+GET /api/events/{id}/categories Get all categories for event Any None 200 OK - list of categories
+POST /api/events/{id}/categories Add category to event Organiser { categoryName, distance, entryFee, ... } 201 Created - category; 400 Bad Request; 404 Not Found
+PUT /api/categories/{id} Update category Organiser { categoryName, distance, ... } 200 OK - updated category; 404 Not Found
+DELETE /api/categories/{id} Delete category Organiser None 204 No Content; 404 Not Found
+GET /api/enrolments Get all enrolments (filter by participant) Participant None (query: eventId, status) 200 OK - list of enrolments
+POST /api/events/{id}/enrol Enrol in event category Participant { categoryId } 201 Created - enrolment; 400 Bad Request; 409 Conflict - already enrolled
+PUT /api/enrolments/{id}/cancel Cancel enrolment Participant None 200 OK - cancelled enrolment; 404 Not Found; 403 Forbidden - not participant's enrolment
+PUT /api/enrolments/{id}/status Update enrolment status Organiser { status } 200 OK - updated enrolment; 404 Not Found
+GET /api/results Get results (filter by event) Any None (query: eventId, participantId) 200 OK - list of results
+POST /api/results Submit participant result Organiser { enrolmentId, finishTime, position } 201 Created - result; 400 Bad Request; 404 Not Found
+PUT /api/results/{id} Update result Organiser { finishTime, position } 200 OK - updated result; 404 Not Found
+GET /api/participants/{id}/results Get participant's result history Participant None 200 OK - list of participant results; 403 Forbidden - not own results
+GET /api/weather/event/{id} Get weather for event Any None 200 OK - weather data; 404 Not Found
+POST /api/weather/event/{id} Add/update weather for event Organiser { forecastDate, temperature, ... } 201 Created - weather; 400 Bad Request
+GET /api/organisers/{id}/events Get all events by organiser Organiser None 200 OK - list of organiser events; 403 Forbidden - not own events

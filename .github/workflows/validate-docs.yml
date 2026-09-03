@@ -1,0 +1,87 @@
+name: Validate Documentation
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  validate-docs:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Check docs folder exists
+        run: |
+          if [ ! -d "docs" ]; then
+            echo "❌ docs folder not found!"
+            exit 1
+          fi
+          echo "✅ docs folder exists"
+          
+      - name: Check ERD file exists
+        run: |
+          if [ ! -f "docs/ERD.png" ] && [ ! -f "docs/ERD.pdf" ]; then
+            echo "❌ ERD image not found! Expected ERD.png or ERD.pdf"
+            exit 1
+          fi
+          echo "✅ ERD file found"
+          
+      - name: Check API Endpoint Plan exists
+        run: |
+          if [ ! -f "docs/API_Endpoint_Plan.md" ] && [ ! -f "docs/API_Endpoint_Plan.pdf" ]; then
+            echo "❌ API endpoint plan not found!"
+            exit 1
+          fi
+          echo "✅ API endpoint plan found"
+          
+      - name: Check SQL script exists
+        run: |
+          if [ ! -f "docs/RaceDay_Schema.sql" ]; then
+            echo "❌ SQL script not found!"
+            exit 1
+          fi
+          echo "✅ SQL script found"
+          
+      - name: Validate SQL syntax (basic)
+        run: |
+          if grep -q "CREATE TABLE" docs/RaceDay_Schema.sql; then
+            echo "✅ SQL contains CREATE TABLE statements"
+          else
+            echo "❌ SQL script missing CREATE TABLE statements"
+            exit 1
+          fi
+          
+          if grep -q "INSERT INTO" docs/RaceDay_Schema.sql; then
+            echo "✅ SQL contains INSERT statements"
+          else
+            echo "❌ SQL script missing INSERT statements"
+            exit 1
+          fi
+          
+      - name: Check README exists
+        run: |
+          if [ ! -f "README.md" ]; then
+            echo "❌ README.md not found!"
+            exit 1
+          fi
+          echo "✅ README.md found"
+          
+      - name: Check required sections in README
+        run: |
+          if ! grep -q "System" README.md; then
+            echo "❌ README missing system description"
+            exit 1
+          fi
+          if ! grep -q "Role" README.md; then
+            echo "❌ README missing role descriptions"
+            exit 1
+          fi
+          echo "✅ README contains required sections"
+          
+      - name: All validations passed
+        run: echo "✅ All documentation checks passed!"

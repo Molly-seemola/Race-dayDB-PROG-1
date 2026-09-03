@@ -1,4 +1,4 @@
-# RaceDay API Endpoint Plan
+# 🌐 RaceDay API Endpoint Plan
 
 ## Base URL: `/api`
 
@@ -33,7 +33,9 @@
 | GET | `/api/events/search` | Search events by name or location | Any | None (query: q) | 200 OK - list of matching events |
 | GET | `/api/dashboard/stats` | Get platform statistics | Organiser | None | 200 OK - statistics |
 
-## Authentication Requirements
+---
+
+## 🔐 Authentication Requirements
 
 | Role | Access |
 |---|---|
@@ -42,7 +44,9 @@
 | **Organiser** | Only users with Organiser role |
 | **Participant** | Only users with Participant role |
 
-## HTTP Status Codes Used
+---
+
+## 📊 HTTP Status Codes Used
 
 | Code | Meaning |
 |---|---|
@@ -55,3 +59,22 @@
 | 404 | Not Found - Resource doesn't exist |
 | 409 | Conflict - Resource already exists |
 | 500 | Internal Server Error - Something went wrong |
+
+---
+
+## 📊 Endpoint Summary
+
+| Category | Number of Endpoints |
+|---|---|
+| Authentication | 5 |
+| Events | 9 |
+| Categories | 4 |
+| Enrolments | 4 |
+| Results | 4 |
+| Weather | 2 |
+| Dashboard | 2 |
+| **Total** | **30** |
+
+---
+
+*API Endpoint Plan for RaceDay - Part 1*

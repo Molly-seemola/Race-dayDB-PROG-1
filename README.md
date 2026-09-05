@@ -206,24 +206,14 @@ This sample data is included to demonstrate that the database relationships work
 
 ## 9. GitHub Repository Structure
 
-The intended repository structure is:
-
-```text
-RaceDay/
-│
+ Race-dayDB-PROG-1/
 ├── docs/
-│   ├── RaceDay_ERD.pdf
-│   ├── RaceDay_API_Endpoint_Plan.md
-│   └── RaceDay_Database.sql
-│
-├── .github/
-│   └── workflows/
-│       └── part1-validation.yml
-│
-└── README.md
-```
-
----
+│   ├──  ERD.png              
+│   ├──  API_Endpoint_Plan.md
+│   └── RaceDay_Schema.sql  
+├──  .github/workflows/
+│   └──  validate-docs.yml
+└──  README.md
 
 ## 10. CI/CD
 
@@ -274,7 +264,14 @@ The following will be checked:
 Screenshots of the successful execution will be included as evidence where required.
 
 ---
+## System Overview
 
+RaceDay is a web-based event management system for the South African road running, walking and cycling community.
+
+## System Roles
+
+- **Organiser**: Can create and manage events, view enrolments, capture results
+- **Participant**: Can browse events, enrol, view personal results
 ## 13. Future Development
 
 Part 1 provides the foundation for the remaining RaceDay project.

@@ -1,4 +1,4 @@
-# 🏃 RaceDay – Portfolio of Evidence Part 1
+#  RaceDay – Portfolio of Evidence Part 1
 
 ## 1. Project Overview
 
@@ -242,14 +242,14 @@ GitHub Actions is used in Part 1 to validate the required project structure.
 
 | Check | Description |
 |---|---|
-| ✅ | `docs` folder exists |
-| ✅ | ERD file exists (`ERD.png` or `ERD.pdf`) |
-| ✅ | API endpoint plan exists (`API_Endpoint_Plan.md` or `.pdf`) |
-| ✅ | SQL script exists (`RaceDay_Schema.sql`) |
-| ✅ | SQL contains `CREATE TABLE` statements |
-| ✅ | SQL contains `INSERT INTO` statements |
-| ✅ | `README.md` exists |
-| ✅ | `README.md` contains "System" and "Role" sections |
+|  | `docs` folder exists |
+|  | ERD file exists (`ERD.png` or `ERD.pdf`) |
+|  | API endpoint plan exists (`API_Endpoint_Plan.md` or `.pdf`) |
+|  | SQL script exists (`RaceDay_Schema.sql`) |
+|  | SQL contains `CREATE TABLE` statements |
+|  | SQL contains `INSERT INTO` statements |
+|  | `README.md` exists |
+|  | `README.md` contains "System" and "Role" sections |
 
 ### Green Build Screenshot
 

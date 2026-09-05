@@ -7,12 +7,11 @@ on:
     branches: [ main, master ]
   workflow_dispatch:
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true   # <-- Fixes the Node.js warning!
-
 jobs:
   validate-docs:
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     
     steps:
       - name: Checkout repository
@@ -28,9 +27,8 @@ jobs:
           
       - name: Check ERD file exists
         run: |
-          # Looking for YOUR file name with a space!
-          if [ ! -f "docs/RACEDAY ERD.png" ] && [ ! -f "docs/RACEDAY ERD.pdf" ]; then
-            echo "❌ ERD image not found! Expected RACEDAY ERD.png or RACEDAY ERD.pdf"
+          if [ ! -f "docs/ERD.png" ] && [ ! -f "docs/ERD.pdf" ]; then
+            echo "❌ ERD image not found! Expected ERD.png or ERD.pdf"
             exit 1
           fi
           echo "✅ ERD file found"
@@ -45,23 +43,22 @@ jobs:
           
       - name: Check SQL script exists
         run: |
-          # Looking for YOUR file name with a space!
-          if [ ! -f "docs/RACEDAY Prog1.sql" ] && [ ! -f "docs/RACEDAY Prog1.sql" ]; then
-            echo "❌ SQL script not found! Expected RACEDAY Prog1.sql"
+          if [ ! -f "docs/RaceDay_Schema.sql" ]; then
+            echo "❌ SQL script not found! Expected RaceDay_Schema.sql"
             exit 1
           fi
           echo "✅ SQL script found"
           
       - name: Validate SQL syntax (basic)
         run: |
-          if grep -q "CREATE TABLE" "docs/RACEDAY Prog1.sql"; then
+          if grep -q "CREATE TABLE" docs/RaceDay_Schema.sql; then
             echo "✅ SQL contains CREATE TABLE statements"
           else
             echo "❌ SQL script missing CREATE TABLE statements"
             exit 1
           fi
           
-          if grep -q "INSERT INTO" "docs/RACEDAY Prog1.sql"; then
+          if grep -q "INSERT INTO" docs/RaceDay_Schema.sql; then
             echo "✅ SQL contains INSERT statements"
           else
             echo "❌ SQL script missing INSERT statements"
